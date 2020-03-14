@@ -8,9 +8,10 @@ import { Loading } from './LoadingComponent';
 const mapStateToProps = state => {
     return {
         dishes: state.dishes,
-        comments: state.comments,
         promotions: state.promotions,
-        leaders: state.leaders
+        leaders: state.leaders,
+        comments: state.comments,
+        favorites: state.favorites
     }
 }
 
