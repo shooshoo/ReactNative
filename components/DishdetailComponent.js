@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
-    postComment: (dishId, rating, author, comment)=> dispatch(postComment(dishId, rating, author, comment))
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 })
 
 
@@ -27,7 +27,11 @@ function RenderComments(props) {
         return (
             <View key={index} style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-                <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
+                <Rating
+                    imageSize={20}
+                    readonly
+                    startingValue={item.rating}
+                />
                 <Text style={{ fontSize: 12 }}>{'-- ' + item.author + ', ' + item.date} </Text>
             </View>
         );
@@ -175,6 +179,7 @@ class Dishdetail extends Component {
                                 showRating
                                 onFinishRating={(rating) => this.ratingCompleted(rating)}
                                 style={{ paddingVertical: 10 }}
+                                ratingCount={5}
                             />
                         </View>
                         <View style={styles.formRow}>
