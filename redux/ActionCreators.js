@@ -160,8 +160,6 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
         author: author,
         date: date
     };
-    console.log("in postComment");
-    console.log(JSON.stringify(commentObj));
     setTimeout(() => {
         dispatch(addComment(commentObj));
     }, 2000);
@@ -171,3 +169,8 @@ export const addComment = (commentObj) => ({
     type: ActionTypes.ADD_COMMENT,
     payload: commentObj
 });
+
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId
+});  
