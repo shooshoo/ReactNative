@@ -6,6 +6,7 @@ import About from './AboutComponent';
 import Dishdetail from './DishdetailComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
+import Test from './TestComponent';
 import { View, Platform, Image, StyleSheet, ScrollView, Text } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
@@ -137,6 +138,22 @@ const FavoritesNavigator = createStackNavigator({
     })
 });
 
+const TestNavigator = createStackNavigator({
+    Test: { screen: Test }
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: "#512DA8"
+        },
+        headerTitleStyle: {
+            color: "#fff"
+        },
+        headerTintColor: "#fff",
+        headerLeft: <Icon name="menu" size={24}
+            iconStyle={{ color: 'white' }}
+            onPress={() => navigation.toggleDrawer()} />
+    })
+});
 
 
 const CustomDrawerContentComponent = (props) => (
@@ -248,6 +265,22 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
             title: 'My Favorites',
             drawerLabel: 'My Favorites',
+            drawerIcon: ({ tintColor, focused }) => (
+                <Icon
+                    name='heart'
+                    type='font-awesome'
+                    size={24}
+                    iconStyle={{ color: tintColor }}
+                />
+            ),
+        }
+    },
+    Test:
+    {
+        screen: TestNavigator,
+        navigationOptions: {
+            title: 'My Test',
+            drawerLabel: 'My Test',
             drawerIcon: ({ tintColor, focused }) => (
                 <Icon
                     name='heart'
