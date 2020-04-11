@@ -52,16 +52,16 @@ function RenderItem(props) {
 
 class Home extends Component {
     
-        constructor(props) {
+      /*   constructor(props) {
             super(props);
             this.animatedValue = new Animated.Value(0);
-        }
+        } */
 
     static navigationOptions = {
         title: 'Home'
     };
 
-      componentDidMount() {
+    /*   componentDidMount() {
           console.log("in dismount");
           this.animate();
   
@@ -78,12 +78,12 @@ class Home extends Component {
                   easing: Easing.linear
               }
           ).start(() => this.animate());
-      };
+      }; */
   
 
     render() {
 
-           const xpos1 = this.animatedValue.interpolate({
+          /*  const xpos1 = this.animatedValue.interpolate({
                inputRange: [0, 1, 3, 5, 8],
                outputRange: [1200, 600, 0, -600, -1200]
            });
@@ -96,10 +96,10 @@ class Home extends Component {
            const xpos3 = this.animatedValue.interpolate({
                inputRange: [0, 3, 5, 7, 8],
                outputRange: [1200, 600, 0, -600, -1200]
-           });
+           }); */
    
         return (
-           /*  <ScrollView>
+            <ScrollView>
                 <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                     isLoading={this.props.dishes.isLoading}
                     errMess={this.props.dishes.errMess} />
@@ -109,8 +109,8 @@ class Home extends Component {
                 <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
                     isLoading={this.props.leaders.isLoading}
                     errMess={this.props.leaders.errMess} />
-            </ScrollView> */
-             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+            </ScrollView>
+           /*   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
                  <Animated.View style={{ width: '100%', transform: [{ translateX: xpos1 }] }}>
                      <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                          isLoading={this.props.dishes.isLoading}
@@ -126,7 +126,7 @@ class Home extends Component {
                          isLoading={this.props.leaders.isLoading}
                          errMess={this.props.leaders.errMess} />
                  </Animated.View>
-             </View>
+             </View> */
         );
     }
 }
