@@ -302,12 +302,10 @@ const MainNavigator = createDrawerNavigator({
 class Main extends Component {
 
     componentDidMount() {
-        console.log("Start Mount");
         this.props.fetchDishes();
         this.props.fetchComments();
         this.props.fetchPromos();
         this.props.fetchLeaders();
-        console.log("End Mount");
     }
 
 

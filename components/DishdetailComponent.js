@@ -61,10 +61,15 @@ function RenderDish(props) {
         return this.view = ref;
     };
 
-    console.log("in render dish");
-
     const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
         if (dx < -200)
+            return true;
+        else
+            return false;
+    }
+
+    const recognizeDragRight = ({ moveX, moveY, dx, dy }) => {
+        if (dx > 200)
             return true;
         else
             return false;
@@ -75,12 +80,9 @@ function RenderDish(props) {
             return true;
         },
         onPanResponderGrant: () => {
-            console.log(this.view);
-            console.log("this.view: ",this.view);
             this.view.rubberBand(2000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));
         },
         onPanResponderEnd: (e, gestureState) => {
-            console.log("pan responder end", gestureState);
             if (recognizeDrag(gestureState))
                 Alert.alert('Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -96,6 +98,11 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+                else  if (recognizeDragRight(gestureState)){
+                    console.log('left to right');
+                    props.onComment();
+                }
+               
             return true;
         }
     });
@@ -151,11 +158,6 @@ class Dishdetail extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log(JSON.stringify(this.state));
-
-    }
-
     toggleModal() {
         this.setState({ showModal: !this.state.showModal });
     }
@@ -196,9 +198,6 @@ class Dishdetail extends Component {
 
     handleCommit() {
         const dishId = this.props.navigation.getParam('dishId', '');
-        console.log("in handle commit");
-        console.log(this.state.author);
-        console.log(JSON.stringify(this.state));
         this.props.postComment(dishId, this.state.rate, this.state.author, this.state.comment);
         this.resetForm();
     }
