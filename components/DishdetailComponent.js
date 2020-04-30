@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, FlatList, StyleSheet, Modal, Button, Alert, PanResponder } from 'react-native';
+import { View, Text, ScrollView, FlatList, StyleSheet, Modal, Button, Alert, PanResponder, Share } from 'react-native';
 import { Card, Icon, Rating, AirbnbRating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -98,14 +98,26 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
-                else  if (recognizeDragRight(gestureState)){
-                    console.log('left to right');
-                    props.onComment();
-                }
-               
+            else if (recognizeDragRight(gestureState)) {
+                console.log('left to right');
+                props.onComment();
+            }
+
             return true;
         }
     });
+
+    const shareDish = (title, message, url) => {
+        console.log(url);
+        Share.share({
+            title: title,
+            message: title + ': ' + message + ' ' + url,
+            url: url
+        }, {
+            dialogTitle: 'Share ' + title
+        })
+    }
+
 
     if (dish != null) {
         return (
@@ -133,6 +145,16 @@ function RenderDish(props) {
                             color='#512DA8'
                             onPress={() => props.onComment()}
                         />
+                        <Icon
+                            raised
+                            reverse
+                            name='share'
+                            type='font-awesome'
+                            color='#51D2A8'
+                            style={styles.cardItem}
+                            onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)}
+                        />
+
                     </View>
 
                 </Card>
