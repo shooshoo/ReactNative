@@ -5,6 +5,7 @@ import DatePicker from 'react-native-datepicker';
 import * as Animatable from 'react-native-animatable';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
+import * as Calendar from 'expo-calendar';
 
 class Reservation extends Component {
     constructor(props) {
@@ -20,6 +21,41 @@ class Reservation extends Component {
     static navigationOptions = {
         title: 'Reserve Table',
     };
+
+    obtainCalendarPermission = async () => {
+        console.log('in obtain perission');
+        const { status } = await Calendar.requestCalendarPermissionsAsync();
+        if (status === 'granted') {
+            console.log(status);
+            return true;
+        }
+        else {
+            console.log(status);
+            return false;
+        }
+
+    }
+
+    addReservationToCalendar = async (reservationDate) => {
+        console.log(reservationDate);
+
+        if (this.obtainCalendarPermission()) {
+            console.log('event adding');
+            let calendars = await Calendar.getCalendarsAsync();
+            console.log(calendars)
+
+
+            let result = await Calendar.createEventAsync(calendars[0].id,
+                {
+                    title: 'Con Fusion Table Reservation',
+                    startDate: new Date(Date.parse(reservationDate)),
+                    endDate: new Date(Date.parse(reservationDate) + (2 * 60 * 60 * 1000)),
+                    timeZone: 'Asia/Hong_Kong'
+                });
+            console.log('end of event adding');
+        }
+
+    }
 
     toggleModal() {
         this.setState({ showModal: !this.state.showModal });
@@ -37,6 +73,7 @@ class Reservation extends Component {
                 , {
                     text: 'OK',
                     onPress: () => {
+                        this.addReservationToCalendar(this.state.date);
                         this.presentLocalNotification(this.state.date);
                         this.resetForm();
                     }
